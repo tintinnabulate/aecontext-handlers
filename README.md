@@ -3,7 +3,9 @@ aecontext-handlers are a bunch of AppEngine context handlers that wrap the stand
 
 ## Example usage
 
-This is an appengine main application (hence there is no `func main() {}` -- see `func init() {...}` for the definition of the http routes)
+This is an appengine main application, hence there is no `func main() {}`.
+
+See `func init() {...}` for the definition of the http routes.
 
 ### `main.go`
 
@@ -74,3 +76,11 @@ func TestFooHandler(t *testing.T) {
 ## Used by
 
 * <https://github.com/tintinnabulate/registration-webapp> (See `register.go` and `register_test.go`)
+
+## Inspired by
+
+This idea was taken, almost completely unmodified, from the excellent Compound Theory blog:
+
+<https://www.compoundtheory.com/testing-go-http-handlers-in-google-app-engine-with-mux-and-higher-order-functions/>
+
+All credit goes to that :-)
