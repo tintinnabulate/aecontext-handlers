@@ -5,7 +5,7 @@ aecontext-handlers are a bunch of AppEngine context handlers that wrap the stand
 
 This is an appengine main application (hence there is no `func main() {}` -- see `func init() {...}` for the definition of the http routes)
 
-### `main.go`
+### `main.go`
 
 ```go
 package main
@@ -71,3 +71,6 @@ func TestFooHandler(t *testing.T) {
 }
 ```
 
+## Used by
+
+* <https://github.com/tintinnabulate/registration-webapp> (See `register.go` and `register_test.go`)
