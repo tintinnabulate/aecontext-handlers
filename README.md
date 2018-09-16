@@ -76,6 +76,7 @@ func TestFooHandler(t *testing.T) {
 ## Used by
 
 * <https://github.com/tintinnabulate/registration-webapp> (See `register.go` and `register_test.go`)
+* <https://github.com/tintinnabulate/vmail> (See `signup.go` and `signup_test.go`)
 
 ## Inspired by
 
