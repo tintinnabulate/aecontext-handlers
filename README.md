@@ -17,7 +17,7 @@ import (
 	"github.com/gorilla/mux"
 	"golang.org/x/net/context"
 
-    handlers "github.com/tintinnabulate/aecontext-handlers"
+	"github.com/tintinnabulate/aecontext-handlers/handlers"
 )
 
 // createHTTPRouter : create a HTTP router where each handler is wrapped by a given context
@@ -48,7 +48,7 @@ import (
 	"testing"
 
 	c "github.com/smartystreets/goconvey/convey"
-
+	"github.com/tintinnabulate/aecontext-handlers/handlers"
 	"golang.org/x/net/context"
 	"google.golang.org/appengine"
 )
