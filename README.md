@@ -13,9 +13,9 @@ See `func init() {...}` for the definition of the http routes.
 package main
 
 import (
-	"net/http"
 	"github.com/gorilla/mux"
 	"golang.org/x/net/context"
+	"net/http"
 
 	"github.com/tintinnabulate/aecontext-handlers/handlers"
 )
@@ -49,8 +49,6 @@ import (
 
 	c "github.com/smartystreets/goconvey/convey"
 	"github.com/tintinnabulate/aecontext-handlers/handlers"
-	"golang.org/x/net/context"
-	"google.golang.org/appengine"
 )
 
 // TestFooHandler : does just that
