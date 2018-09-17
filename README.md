@@ -1,11 +1,13 @@
 # aecontext-handlers
-aecontext-handlers are a bunch of AppEngine context handlers that wrap the standard `net/http` HandlerFunc, enabling you to fully test each HTTP Handler by passing in the correct context for live/test mode.
+
+aecontext-handlers are a bunch of AppEngine context handlers that wrap the
+standard `net/http` HandlerFunc, enabling you to easily switch out how the
+AppEngine Context is created, depending on what environment (production / test)
+the code is running in.
 
 ## Example usage
 
-This is an appengine main application, hence there is no `func main() {}`.
-
-See `func init() {...}` for the definition of the http routes.
+Note that this is an AppEngine main application, hence there is no `func main() {}`.
 
 ### `main.go`
 
@@ -20,7 +22,11 @@ import (
 	"github.com/tintinnabulate/aecontext-handlers/handlers"
 )
 
-// createHTTPRouter : create a HTTP router where each handler is wrapped by a given context
+// createHTTPRouter : creates our URL router. As an argument it takes in a
+// ToHandlerHOF, whose job is to make the conversion to a standard HandlerFunc()
+// format. This means we can change how the AppEngine Context gets created, by
+// passing in different ToHandlerHOF implementations. In this case, we use the one
+// we want for production (see `init()` function)
 func createHTTPRouter(f handlers.ToHandlerHOF) *mux.Router {
 	appRouter := mux.NewRouter()
 	appRouter.HandleFunc("/foo", f(fooHandler)).Methods("GET")
@@ -32,6 +38,7 @@ func fooHandler(ctx context.Context, w http.ResponseWriter, req *http.Request) {
 }
 
 func init() {
+    // create our URL router, passing in a HOF that converts to a standard HandlerFunc()
 	router := createHTTPRouter(handlers.ToHTTPHandler)
 	http.Handle("/", router)
 }
@@ -53,10 +60,13 @@ import (
 
 // TestFooHandler : does just that
 func TestFooHandler(t *testing.T) {
+    // Get our testing context and aetest instance
 	ctx, inst := handlers.GetTestingContext()
+    // Remember to close it at the end of every test!
 	defer inst.Close()
 
 	c.Convey("When user visits the foo page", t, func() {
+        // create our router, using this testing context
 		r := createHTTPRouter(handlers.ToHTTPHandlerConverter(ctx))
 		record := httptest.NewRecorder()
 
@@ -64,7 +74,9 @@ func TestFooHandler(t *testing.T) {
 		c.So(err, c.ShouldBeNil)
 
 		c.Convey("The status should equal http.StatusOK", func() {
+            // use the router to serve the request, recording the response
 			r.ServeHTTP(record, req)
+            // Assert that the return code matches what we expect
 			c.So(record.Code, c.ShouldEqual, http.StatusOK)
 		})
 	})
