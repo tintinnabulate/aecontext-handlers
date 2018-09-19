@@ -46,6 +46,7 @@ func GetTestingContext() (context.Context, aetest.Instance) {
 	inst, _ := aetest.NewInstance(
 		// TODO: pass these aetest.Options in as param to GetTestingContext
 		&aetest.Options{
+			SuppressDevAppServerLog:     true,
 			StronglyConsistentDatastore: true,
 		})
 	req, err := inst.NewRequest("GET", "/", nil)
