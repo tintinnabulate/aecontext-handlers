@@ -5,7 +5,6 @@ import (
 
 	"golang.org/x/net/context"
 	"google.golang.org/appengine"
-	"google.golang.org/appengine/aetest"
 )
 
 // HandlerFunc : a convenience type for our usual net/http Handler function signature
