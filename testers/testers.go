@@ -1,4 +1,4 @@
-package testing
+package testers
 
 import (
 	"golang.org/x/net/context"
